@@ -1,0 +1,19 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+h1 {
+    margin: 10px;
+    font-size: larger;
+    font-weight: bold;
+    color: purple;
+    float: left;
+}
+
+#timer {
+    margin: 10px;
+    font-size: larger;
+    font-weight: bold;
+    float: right;
+}
