@@ -6,7 +6,7 @@ var optionsContainer = document.getElementById("answers");
 var questionArray = [
     {
         text: "Inside which HTML element do we put the Javascript?",
-        options: ["1. <javascript", "2. <script>", "3. <scripting>", "4. <js>"],
+        options: ["1. <javascript>", "2. <script>", "3. <scripting>", "4. <js>"],
         answerIndex: 1
     },
     {
@@ -15,23 +15,24 @@ var questionArray = [
         answerIndex: 1
     },
     {
-        text: "What is the correct syntax referring to a script callled 'xxx.js'",
+        text: "What is the correct syntax referring to a script called 'xxx.js'",
         options: ["1. <script src='xxx.js'>", "2. <script href='xxx.js'", "3. <script rel='xxx.s'", "4. <script link='xxx.js'"],
-        answerIndex: 0
+        solution: "1. <script src='xxx.js'>"
     },
     {
         text: "How do you write 'Hello World' in an alert box?",
         options: ["1. msg('Hello World');", "2. alert('Hello World');", "3. msgBox('Hello World');", "4. alertBox('Hello World');"],
-        answerIndex: 1
+        solution: "2. alert('Hello World');"
     },
     {
         text: "How do you write an IF statement in JavaScript?",
         options: ["1. if i==5 then", "2. if (i==5)", "3. if i=5", "4. if i=5 then"],
-        answerIndex: 1
+        solution: "2. if (i==5)"
     },
 ];
 
-var currentIndex = 0;
+var questionIndex = 0;
+var timer = 50;
 
 // Function definitions
 function displayQuestion () {
@@ -40,36 +41,42 @@ function displayQuestion () {
     // 1. Create an element
     var questionElement = document.createElement("p");
     // 2. Add content
-    questionElement.textContent = questionArray[currentIndex].text;
+    questionElement.textContent = questionArray[questionIndex].text;
     // 3. Append to an existing element
     questionContainer.append(questionElement);
 
     // Pull the options off the object and iterate over them
-    for (var i=0; i < questionArray[currentIndex].options.length; i++) {
+    for (var i=0; i < questionArray[questionIndex].options.length; i++) {
         // 1. Create an element
         var optionsElement = document.createElement("button");
         // 2. Add content
-        optionsElement.textContent = questionArray[currentIndex].options[i];
+        optionsElement.textContent = questionArray[questionIndex].options[i];
+        optionsElement.onclick = checkAnswer;
+        optionsElement.setAttribute("value", questionArray[questionIndex].options[i]);
         // 3. Append to an existing element
         optionsContainer.append(optionsElement);
     }
 }
 
-// Event listeners
-optionsContainer.addEventListener("click", function() {
-    
-    // TODO: Need to capture the button guessed and compare to correct answer from the array in order to advance
-    console.log(optionsContainer.event.target);
-    
-    if(currentIndex < questionArray.length -1) {
-        currentIndex++;
+function checkAnswer () {
+    // TODO: Compare clicked value to the solution value
+    console.log(this.value);
+    var solutionElement = questionArray[questionIndex].solution;
+    console.log(solutionElement);
+    if(questionIndex < questionArray.length -1 && this.value === questionArray[questionIndex].solution) {
+        console.log("Correct answer!")
+        questionIndex++;
     } else {
         alert("Wrong answer...please guess again.");
         // TODO: Subtract time from the clock
-
+    
     }
     displayQuestion();
-});
+};
+
+
+// Event listeners
+
 
 // Function calls
 displayQuestion();

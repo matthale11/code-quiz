@@ -20,6 +20,8 @@ p {
 button {
     text-align: left;
     margin: 5px;
+    background-color: purple;
+    color: white;
 }
 
 #answers {
