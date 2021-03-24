@@ -4,4 +4,4 @@ This coding quiz asks several multiple-choice questions in a timed assessment on
 
 [JavaScript Fundamentals Quiz](https://matthale11.github.io/code-quiz/)
 
-![Code Quiz Screenshot](/assets/screenshot.png)
+![Code Quiz Screenshot](./assets/screenshot.png)
