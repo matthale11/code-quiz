@@ -48,6 +48,7 @@ function startTimer() {
             alert("GAME OVER");
         }
         timeInterval--;
+        // TODO: stop function at zero OR finished quiz
     }, 1000);
 }
 
@@ -81,11 +82,14 @@ function checkAnswer () {
     var solutionElement = questionArray[questionIndex].solution;
     console.log(solutionElement);
     if(questionIndex < questionArray.length -1 && this.value === questionArray[questionIndex].solution) {
-        console.log("Correct answer!")
         questionIndex++;
-    } else {
+    } else if(questionIndex < questionArray.length && this.value !== questionArray[questionIndex].solution) {
         alert("Wrong answer...please guess again.");
         timeInterval = timeInterval -5;
+    } else {
+        console.log(timeInterval);
+        prompt("You completed the quiz! Your score is " + timeInterval, "Please enter your initials");
+        window.location.href = "scores.html";
     }
     displayQuestion();
 };
