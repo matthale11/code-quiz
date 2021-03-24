@@ -3,6 +3,7 @@ var questionContainer = document.getElementById("question");
 var optionsContainer = document.getElementById("answers");
 var startButton = document.getElementById("start");
 var timerContainer = document.getElementById("time-left");
+var playAgain = document.getElementById("play-again");
 
 // JS variables
 var questionArray = [
@@ -34,7 +35,7 @@ var questionArray = [
 ];
 
 var questionIndex = 0;
-var timeInterval = 50;
+var timeInterval = 40;
 var interval;
 
 // Function definitions
@@ -48,7 +49,6 @@ function startTimer() {
             alert("GAME OVER");
         }
         timeInterval--;
-        // TODO: stop function at zero OR finished quiz
     }, 1000);
 }
 
@@ -78,25 +78,31 @@ function displayQuestion () {
 
 function checkAnswer () {
     // Compare clicked value to the solution value
-    console.log(this.value);
-    var solutionElement = questionArray[questionIndex].solution;
-    console.log(solutionElement);
     if(questionIndex < questionArray.length -1 && this.value === questionArray[questionIndex].solution) {
         questionIndex++;
     } else if(questionIndex < questionArray.length && this.value !== questionArray[questionIndex].solution) {
         alert("Wrong answer...please guess again.");
         timeInterval = timeInterval -5;
     } else {
-        console.log(timeInterval);
-        prompt("You completed the quiz! Your score is " + timeInterval, "Please enter your initials");
+        clearInterval(interval);
+        var initials = prompt("Your score is " + timeInterval, "Please enter your initials");
         window.location.href = "scores.html";
+        // Save score and initials to local storage
+        var highScores = JSON.parse(localStorage.getItem("scores")) || [];
+        var newScore = {
+            score: timeInterval,
+            initials: initials,
+        }
+        highScores.push(newScore);
+        localStorage.setItem("scores", JSON.stringify(newScore));
+        // TODO: Append new scores and initials to the high score list
+
     }
     displayQuestion();
 };
 
-// Event listeners
-// TODO: Start timer when start button is pressed
-startButton.onclick = startTimer();
-
-// Function calls
-displayQuestion();
+// Event listeners and function calls
+startButton.onclick = function() {
+    startTimer();
+    displayQuestion();
+}
