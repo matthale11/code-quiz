@@ -1,6 +1,7 @@
 // DOM variables
 var questionContainer = document.getElementById("question");
 var optionsContainer = document.getElementById("answers");
+var timerContainer = document.getElementById("time-left");
 
 // JS variables
 var questionArray = [
@@ -32,9 +33,23 @@ var questionArray = [
 ];
 
 var questionIndex = 0;
-var timer = 50;
+var timeInterval = 50;
 
 // Function definitions
+
+function startTimer() {
+    // TODO: Start timer when start button is pressed
+    timeInterval = setInterval(function(){
+        // Create an element
+        var timerElement = document.createElement("p");
+        // Add content
+        timerContainer.textContent = timeInterval;
+        // Append content
+        timerContainer.append(timerElement);
+        timeInterval--;
+    }, 1000);
+}
+
 function displayQuestion () {
     questionContainer.innerHTML = "";
     // Pull the question text off the object
