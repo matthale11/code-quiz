@@ -1,12 +1,12 @@
 // DOM variables
-var questionElement = document.getElementById("question");
-var answersElement = document.getElementById("answers");
+var questionContainer = document.getElementById("question");
+var optionsContainer = document.getElementById("answers");
 
 // JS variables
 var questionArray = [
     {
         text: "Inside which HTML element do we put the Javascript?",
-        answers: ["<javascript", "<script>", "<scripting>", "<js>"]
+        options: ["<javascript", "<script>", "<scripting>", "<js>"]
     },
     {
         text: "What is the correct place to insert a JavaScript?",
@@ -26,10 +26,32 @@ var questionArray = [
     },
 ];
 
-// Function definitions
+var currentIndex = 0;
 
+// Function definitions
+function displayQuestion () {
+    questionContainer.innerHTML = "";
+    // Pull the question text off the object
+    // 1. Create an element
+    var questionElement = document.createElement("p");
+    // 2. Add content
+    questionElement.textContent = questionArray[currentIndex].text;
+    // 3. Append to an existing element
+    questionContainer.append(questionElement);
+
+    // Pull the options off the object and iterate over them
+    for (var i=0; i < questionArray[currentIndex].options.length; i++) {
+        // 1. Create an element
+        var optionsElement = document.createElement("li");
+        // 2. Add content
+        optionsElement.textContent = questionArray[currentIndex].options[i];
+        // 3. Append to an existing element
+        optionsContainer.append(optionsElement);
+    }
+}
 
 // Event listeners
 
 
 // Function calls
+displayQuestion();
