@@ -1,6 +1,7 @@
 // DOM variables
 var questionContainer = document.getElementById("question");
 var optionsContainer = document.getElementById("answers");
+var startButton = document.getElementById("start");
 var timerContainer = document.getElementById("time-left");
 
 // JS variables
@@ -8,12 +9,12 @@ var questionArray = [
     {
         text: "Inside which HTML element do we put the Javascript?",
         options: ["1. <javascript>", "2. <script>", "3. <scripting>", "4. <js>"],
-        answerIndex: 1
+        solution: "2. <script>"
     },
     {
         text: "What is the correct place to insert a JavaScript?",
         options: ["1. Both thea <head> and <body> sections are correct", "2. The <body> section", "3. The <head> section", "4. After the <body>"],
-        answerIndex: 1
+        solution: "2. The <body> section"
     },
     {
         text: "What is the correct syntax referring to a script called 'xxx.js'",
@@ -34,18 +35,18 @@ var questionArray = [
 
 var questionIndex = 0;
 var timeInterval = 50;
+var interval;
 
 // Function definitions
 
 function startTimer() {
-    // TODO: Start timer when start button is pressed
-    timeInterval = setInterval(function(){
-        // Create an element
-        var timerElement = document.createElement("p");
-        // Add content
+    interval = setInterval(function(){
+        // Update the span to reflect the current time
         timerContainer.textContent = timeInterval;
-        // Append content
-        timerContainer.append(timerElement);
+        if(timeInterval === 0) {
+            clearInterval(interval);
+            alert("GAME OVER");
+        }
         timeInterval--;
     }, 1000);
 }
@@ -61,6 +62,7 @@ function displayQuestion () {
     questionContainer.append(questionElement);
 
     // Pull the options off the object and iterate over them
+    optionsContainer.innerHTML = "";
     for (var i=0; i < questionArray[questionIndex].options.length; i++) {
         // 1. Create an element
         var optionsElement = document.createElement("button");
@@ -74,7 +76,7 @@ function displayQuestion () {
 }
 
 function checkAnswer () {
-    // TODO: Compare clicked value to the solution value
+    // Compare clicked value to the solution value
     console.log(this.value);
     var solutionElement = questionArray[questionIndex].solution;
     console.log(solutionElement);
@@ -83,15 +85,14 @@ function checkAnswer () {
         questionIndex++;
     } else {
         alert("Wrong answer...please guess again.");
-        // TODO: Subtract time from the clock
-    
+        timeInterval = timeInterval -5;
     }
     displayQuestion();
 };
 
-
 // Event listeners
-
+// TODO: Start timer when start button is pressed
+startButton.onclick = startTimer();
 
 // Function calls
 displayQuestion();

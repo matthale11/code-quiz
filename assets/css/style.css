@@ -24,6 +24,10 @@ button {
     color: white;
 }
 
+#start {
+    margin-left: 30px;
+}
+
 #answers {
     display: flex;
     flex-direction: column;
