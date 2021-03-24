@@ -11,7 +11,7 @@ a {
     float: left;
 }
 
-p h1 {
+p, h1 {
     margin: 30px;
     font-size: larger;
     font-weight: bold;
