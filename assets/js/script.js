@@ -3,7 +3,6 @@ var questionContainer = document.getElementById("question");
 var optionsContainer = document.getElementById("answers");
 var startButton = document.getElementById("start");
 var timerContainer = document.getElementById("time-left");
-var playAgain = document.getElementById("play-again");
 
 // JS variables
 var questionArray = [
@@ -87,7 +86,7 @@ function checkAnswer () {
         clearInterval(interval);
         var initials = prompt("Your score is " + timeInterval, "Please enter your initials");
         window.location.href = "scores.html";
-        // Save score and initials to local storage
+        //  Save score and initials to local storage
         var highScores = JSON.parse(localStorage.getItem("scores")) || [];
         var newScore = {
             score: timeInterval,
